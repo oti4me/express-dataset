@@ -1,7 +1,7 @@
-var express = require('express');
+const express = require('express');
 const { eraseEvents } = require('../controllers/events');
 
-var router = express.Router();
+const router = express.Router();
 
 router.route('/').delete(eraseEvents);
 
