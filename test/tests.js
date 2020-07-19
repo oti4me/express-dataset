@@ -78,8 +78,12 @@ describe('git_test ', function() {
 						let e = JSON.parse(event[j]);
 						if(e.request.method == "GET") {
 							results[j].should.have.status(e.response.status_code);
-							let ar1 = results[j].body;
-							let ar2 = e.response.body;
+							let ar1 = !Array.isArray(results[j])
+                    ? results[j]
+                    : results[j].body;
+                  let ar2 = !Array.isArray(e.response)
+                    ? e.response
+										: e.response.body;
 							if(e.response.status_code == 404) {
 								continue;
 							}

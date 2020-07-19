@@ -1,5 +1,7 @@
 const db = require('../db/db');
 const { conflict, created, ok } = require('../helpers/response');
+const { removeKeysMulti, removeKeys } = require('../helpers/helper');
+const { VariantAlsoNegotiates } = require('http-errors');
 
 /**
  * Gets all events sorted by id
@@ -12,7 +14,7 @@ const { conflict, created, ok } = require('../helpers/response');
  */
 const getAllEvents = async (req, res, next) => {
   try {
-    const events = await db.find({}).sort({ id: 1 }).exec();
+    const events = await db.find({}, { _id: 0 }).sort({ id: 1 }).exec();
     return ok(res, events);
   } catch (error) {
     return next(error);
@@ -38,6 +40,7 @@ const addEvent = async (req, res, next) => {
     }
 
     const newDoc = await db.insert(body);
+    removeKeys(newDoc, '_id');
     return created(res, newDoc);
   } catch (error) {
     return next(error);
@@ -57,7 +60,7 @@ const getByActor = async (req, res, next) => {
   try {
     const { id } = req.params;
     const events = await db
-      .find({ 'actor.id': parseInt(id) })
+      .find({ 'actor.id': parseInt(id) }, { _id: 0 })
       .sort({ id: 1 })
       .exec();
     return ok(res, events);
@@ -78,7 +81,7 @@ const getByActor = async (req, res, next) => {
 const eraseEvents = async (req, res, next) => {
   try {
     const erasedCount = await db.remove({}, { multi: true });
-    return ok(res, { message: `${erasedCount} event(s) erased!!!` });
+    return ok(res, {}, true);
   } catch (error) {
     return next(error);
   }

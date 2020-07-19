@@ -24,12 +24,12 @@ const conflict = (res, message) => {
  * Returns a json response with status code 201 and a reponse body
  *
  * @param {any} res
- * @param {any} data
+ * @param {any} body
  */
-const created = (res, data) => {
+const created = (res, body) => {
   res.status(CREATED).json({
-    status: CREATED,
-    data,
+    status_code: CREATED,
+    body,
   });
 };
 
@@ -41,7 +41,7 @@ const created = (res, data) => {
  */
 const unporecessed = (res, message) => {
   res.status(UNPROCESSABLE_ENTITY).json({
-    status: UNPROCESSABLE_ENTITY,
+    status_code: UNPROCESSABLE_ENTITY,
     message,
   });
 };
@@ -52,11 +52,15 @@ const unporecessed = (res, message) => {
  * @param {any} res
  * @param {any} body
  */
-const ok = (res, body) => {
-  res.status(OK).json({
-    status: OK,
-    body,
-  });
+const ok = (res, body, status = false) => {
+  const payload = status
+    ? {
+        status_code: OK,
+        body,
+      }
+    : body;
+
+  res.status(OK).json(payload);
 };
 
 /**
@@ -67,7 +71,7 @@ const ok = (res, body) => {
  */
 const notFound = (res, message) => {
   res.status(NOT_FOUND).json({
-    status: NOT_FOUND,
+    status_code: NOT_FOUND,
     message,
   });
 };
@@ -80,7 +84,7 @@ const notFound = (res, message) => {
  */
 const badRequest = (res, message) => {
   res.status(BAD_REQUEST).json({
-    status: BAD_REQUEST,
+    status_code: BAD_REQUEST,
     message,
   });
 };
