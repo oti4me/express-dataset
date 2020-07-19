@@ -1,5 +1,10 @@
 const db = require('../db/db');
 
+/**
+ * Gets dinstinct actors with frequency count
+ *
+ * @returns {Promise<Array<object>>}
+ */
 const getUniqueActors = async () => {
   let actors = await db.find({});
   const mapData = new Map();

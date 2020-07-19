@@ -1,5 +1,14 @@
 const { unporecessed } = require('../helpers/response');
 
+/**
+ * Validates request body for add event post request
+ *
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ *
+ * @returns {next|Request}
+ */
 const addEventValidation = (req, res, next) => {
   const { type, actor, repo, id } = req.body;
 

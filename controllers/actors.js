@@ -34,6 +34,7 @@ const getAllActors = async (req, res, next) => {
 const updateActor = async (req, res, next) => {
   try {
     const { id, avatar_url } = req.body;
+
     const found = await db.findOne({ 'actor.id': id });
 
     if (!found) {

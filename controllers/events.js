@@ -1,6 +1,15 @@
 const db = require('../db/db');
 const { conflict, created, ok } = require('../helpers/response');
 
+/**
+ * Gets all events sorted by id
+ *
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ *
+ * @returns {Promise<Response>}
+ */
 const getAllEvents = async (req, res, next) => {
   try {
     const events = await db.find({}).sort({ id: 1 }).exec();
@@ -10,6 +19,15 @@ const getAllEvents = async (req, res, next) => {
   }
 };
 
+/**
+ * Create events for an actor
+ *
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ *
+ * @returns {Promise<Response>}
+ */
 const addEvent = async (req, res, next) => {
   try {
     const { body } = req;
@@ -26,6 +44,15 @@ const addEvent = async (req, res, next) => {
   }
 };
 
+/**
+ * Gets events by actors
+ *
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ *
+ * @returns {Promise<Response>}
+ */
 const getByActor = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -39,6 +66,15 @@ const getByActor = async (req, res, next) => {
   }
 };
 
+/**
+ * Erase events
+ *
+ * @param {any} req
+ * @param {any} res
+ * @param {any} next
+ *
+ * @returns {Promise<Response>}
+ */
 const eraseEvents = async (req, res, next) => {
   try {
     const erasedCount = await db.remove({}, { multi: true });
