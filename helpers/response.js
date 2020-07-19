@@ -3,6 +3,8 @@ const {
   CONFLICT,
   CREATED,
   UNPROCESSABLE_ENTITY,
+  NOT_FOUND,
+  BAD_REQUEST,
 } = require('http-status-codes');
 
 const conflict = (res, message) => {
@@ -33,9 +35,25 @@ const ok = (res, body) => {
   });
 };
 
+const notFound = (res, message) => {
+  res.status(NOT_FOUND).json({
+    status: NOT_FOUND,
+    message,
+  });
+};
+
+const badRequest = (res, message) => {
+  res.status(BAD_REQUEST).json({
+    status: BAD_REQUEST,
+    message,
+  });
+};
+
 module.exports = {
   conflict,
   created,
   unporecessed,
   ok,
+  notFound,
+  badRequest,
 };
