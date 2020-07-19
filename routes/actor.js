@@ -1,8 +1,9 @@
 const express = require('express');
-const { getAllActors } = require('../controllers/actors');
+const { getAllActors, updateActor } = require('../controllers/actors');
 
 const router = express.Router();
 
 router.get('/', getAllActors);
+router.put('/', updateActor);
 
 module.exports = router;
