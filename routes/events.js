@@ -7,4 +7,5 @@ const router = express.Router();
 router.post('/', addEventValidation, addEvent);
 router.get('/', getAllEvents);
 router.get('/actors/:id', getByActor);
+
 module.exports = router;

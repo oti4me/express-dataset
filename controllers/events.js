@@ -29,7 +29,6 @@ const addEvent = async (req, res, next) => {
 const getByActor = async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const events = await db
       .find({ 'actor.id': parseInt(id) })
       .sort({ id: 1 })
