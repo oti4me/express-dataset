@@ -26,7 +26,19 @@ const addEvent = async (req, res, next) => {
   }
 };
 
-var getByActor = () => {};
+const getByActor = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const events = await db
+      .find({ 'actor.id': parseInt(id) })
+      .sort({ id: 1 })
+      .exec();
+    return ok(res, events);
+  } catch (error) {
+    return next(error);
+  }
+};
 
 const eraseEvents = async (req, res, next) => {
   try {
